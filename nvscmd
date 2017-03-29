@@ -131,8 +131,8 @@ loop:
             /usr/bin/nvidia-settings -a '[gpu:0]/GPUFanControlState=1' -a '[fan:0]/GPUTargetFanSpeed='${target}  $*
             #/usr/bin/nvidia-settings -a '[gpu:0]/GPUOverclockingState=1' -a '[gpu:0]/GPU3DClockFreqs=5005,1911' -a '[gpu:0]/GPUCurrentProcessorClockFreqs=1708' $*
             /usr/bin/nvidia-settings -a '[gpu:0]/GPUPowerMizerMode=1' $*
-            /usr/bin/nvidia-settings -a '[gpu:0]/GPUGraphicsClockOffset[3]=230' $* # 230 worky 1949 vs 1911 "max"
-            /usr/bin/nvidia-settings -a '[gpu:0]/GPUMemoryTransferRateOffset[3]=1300'$* # 1300 worky 5163 vs 5005 "max"
+            /usr/bin/nvidia-settings -a '[gpu:0]/GPUGraphicsClockOffset[3]=215' $* # 215 worky 1936 vs 1911 "max"
+            /usr/bin/nvidia-settings -a '[gpu:0]/GPUMemoryTransferRateOffset[3]=1200'$* # 1200 worky 5103 vs 5005 "max"
 	    #/usr/bin/nvidia-settings -q '[gpu:0]/GPUPerfModes' $*
 	    #/usr/bin/nvidia-settings --query 'GPUPerfModes' $*
         endif
