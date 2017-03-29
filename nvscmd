@@ -89,25 +89,25 @@ loop:
             @ target = -1
         endif
         if (${temp} < 36 && ${temp} >= 31) then
-            @ target = 50
-        endif
-        if (${temp} < 43 && ${temp} >= 38) then
-            @ target = 55
-        endif
-        if (${temp} < 49 && ${temp} >= 44) then
             @ target = 60
         endif
-        if (${temp} < 54 && ${temp} >= 50) then
+        if (${temp} < 43 && ${temp} >= 38) then
             @ target = 65
         endif
-        if (${temp} < 61 && ${temp} >= 55) then
+        if (${temp} < 49 && ${temp} >= 44) then
+            @ target = 70
+        endif
+        if (${temp} < 54 && ${temp} >= 50) then
             @ target = 75
         endif
+        if (${temp} < 61 && ${temp} >= 55) then
+            @ target = 90
+        endif
         if (${temp} < 70 && ${temp} >= 65) then
-            @ target = 80
+            @ target = 95
         endif
         if (${temp} >= 73) then
-            @ target = 85
+            @ target = 99
         endif
         if (${target} == -2 || ${target} == ${last_target} || ${target} == ${last_friendly_target}) then
             echo "Current temperature is ${temp}.  No adjustments needed."
@@ -129,6 +129,12 @@ loop:
         # set fan speed on primary GPU to target
         if (${target} >= 0) then
             /usr/bin/nvidia-settings -a '[gpu:0]/GPUFanControlState=1' -a '[fan:0]/GPUTargetFanSpeed='${target}  $*
+            #/usr/bin/nvidia-settings -a '[gpu:0]/GPUOverclockingState=1' -a '[gpu:0]/GPU3DClockFreqs=5005,1911' -a '[gpu:0]/GPUCurrentProcessorClockFreqs=1708' $*
+            /usr/bin/nvidia-settings -a '[gpu:0]/GPUPowerMizerMode=1' $*
+            /usr/bin/nvidia-settings -a '[gpu:0]/GPUGraphicsClockOffset[3]=230' $* # 230 worky 1949 vs 1911 "max"
+            /usr/bin/nvidia-settings -a '[gpu:0]/GPUMemoryTransferRateOffset[3]=1300'$* # 1300 worky 5163 vs 5005 "max"
+	    #/usr/bin/nvidia-settings -q '[gpu:0]/GPUPerfModes' $*
+	    #/usr/bin/nvidia-settings --query 'GPUPerfModes' $*
         endif
     endif
 
